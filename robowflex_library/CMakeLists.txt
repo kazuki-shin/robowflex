@@ -89,6 +89,7 @@ list(APPEND SOURCES
   src/detail/ur5.cpp
   src/detail/fetch.cpp
   src/detail/cob4.cpp
+  src/detail/papras.cpp
   )
 
 list(APPEND INCLUDES
@@ -119,6 +120,8 @@ target_link_libraries(${LIBRARY_NAME} ${LIBRARIES})
 ## Scripts
 ##
 
+add_script(papras_test)
+add_script(papras_benchmark)
 add_script(ur5_test)
 add_script(ur5_cylinder)
 add_script(ur5_benchmark)

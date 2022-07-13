@@ -122,6 +122,7 @@ target_link_libraries(${LIBRARY_NAME} ${LIBRARIES})
 
 add_script(papras_test)
 add_script(papras_benchmark)
+add_script(papras_visualization)
 add_script(ur5_test)
 add_script(ur5_cylinder)
 add_script(ur5_benchmark)

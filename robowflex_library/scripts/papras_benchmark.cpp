@@ -12,7 +12,7 @@
 using namespace robowflex;
 
 /* \file papras_benchmark.cpp
- * A basic script that demonstrates benchmarking with the Fetch robot.
+ * A basic script that demonstrates benchmarking with the PAPRAS robot.
  * Benchmarking output is saved in the OMPL format. See
  * https://ompl.kavrakilab.org/benchmark.html for more information on the
  * benchmark data format and how to use. http://plannerarena.org/ can be used to
@@ -20,7 +20,14 @@ using namespace robowflex;
  * Note: This script requires GNUPlot for live visualization of timing data.
  */
 
-static const std::string GROUP = "arm1";
+static const std::string GROUP = "arm2";
+
+float RandomFloat(float a, float b) {
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
+}
 
 int main(int argc, char **argv)
 {
@@ -41,18 +48,27 @@ int main(int argc, char **argv)
     // Setup a benchmarking request for the joint and pose motion plan requests.
     Profiler::Options options;
     options.metrics = Profiler::WAYPOINTS | Profiler::CORRECT | Profiler::LENGTH | Profiler::SMOOTHNESS;
-    Experiment experiment("unfurl",  // Name of experiment
+    Experiment experiment("PAPRAS planner benchmark with KDL - 100 trials",  // Name of experiment
                           options,   // Options for internal profiler
                           5.0,       // Timeout allowed for ALL queries
                           100);      // Number of trials
 
     // Create a motion planning request with a pose goal.
     auto request = std::make_shared<MotionRequestBuilder>(planner, GROUP);
-    papras->setGroupState(GROUP, {0, 0, 0, 0, 0, 0});  // Stow
+    papras->setGroupState(GROUP, {0, 0, 0, 0, 0, 0}); 
     request->setStartConfiguration(papras->getScratchState());
 
-    papras->setGroupState(GROUP, {0.0677, -0.8235, 0.9860, -0.1624, 0.0678, 0.0});  // Unfurl
-    request->setGoalConfiguration(papras->getScratchState());
+    // papras->setGroupState(GROUP, {-0.6075, 0.0552, -0.486, 0, 1.1021, 0});  
+    // request->setGoalConfiguration(papras->getScratchState());
+
+    RobotPose pose = RobotPose::Identity();
+    pose.translate(Eigen::Vector3d{0.0 , -0.5, 0.9});
+    Eigen::Quaterniond orn{0, 0, -0.70711, 0.70711};
+
+    request->setGoalRegion("robot2/end_effector_link", "world",               // links
+                                pose, Geometry::makeSphere(0.01),  // position
+                                orn, {0.01, 0.01, 0.01}           // orientation
+        );
 
     request->setConfig("RRTConnect");
     experiment.addQuery("rrtconnect", scene, planner, request->getRequest());
@@ -80,7 +96,7 @@ int main(int argc, char **argv)
     experiment.setPostQueryCallback(
         [&](PlanDataSetPtr dataset, const PlanningQuery &) { plot.dump(*dataset); });
 
-    auto dataset = experiment.benchmark(4);
+    auto dataset = experiment.benchmark(5);
 
     OMPLPlanDataSetOutputter output("robowflex_papras_demo");
     output.dump(*dataset);

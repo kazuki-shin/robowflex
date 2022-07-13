@@ -18,7 +18,7 @@ const std::string  //
     OMPL::PAPRAS_OMPLPipelinePlanner::DEFAULT_CONFIG{
         "package://big_table_moveit_config/config/ompl_planning.yaml"  //
     };
-static const std::string GROUP = "arm1";
+static const std::string GROUP = "arm2";
 
 PAPRASRobot::PAPRASRobot() : Robot("PAPRAS")
 {

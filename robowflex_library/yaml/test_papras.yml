@@ -1,0 +1,16 @@
+name: (noname)
+robot_model_name: papras
+fixed_frame_transforms:
+  - child_frame_id: world
+    transform:
+      translation: [0, 0, 0]
+      rotation: [0, 0, 0, 1]
+world:
+  collision_objects:
+    - id: box
+      primitives:
+        - type: box
+          dimensions: [0.1, 0.1, 0.1]
+      primitive_poses:
+        - position: [1, 1, 1]
+          orientation: [0, 0, 0, 1]

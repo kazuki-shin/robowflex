@@ -120,6 +120,7 @@ target_link_libraries(${LIBRARY_NAME} ${LIBRARIES})
 ## Scripts
 ##
 
+add_script(papras_scenes_visualize)
 add_script(papras_test)
 add_script(papras_benchmark)
 add_script(papras_visualization)

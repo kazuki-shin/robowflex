@@ -1,5 +1,9 @@
 name: (noname)
-robot_model_name: papras
+robot_model_name: simple_robot
+robot_state:
+  joint_state: 
+    position: [0, 0, 0, 0, 0, 0]    
+    name: [robot1/joint1, robot1/joint2, robot1/joint3, robot1/joint4, robot1/joint5, robot1/joint6]
 fixed_frame_transforms:
   - child_frame_id: world
     transform:
@@ -7,10 +11,31 @@ fixed_frame_transforms:
       rotation: [0, 0, 0, 1]
 world:
   collision_objects:
-    - id: box
+    - id: table_right
+      meshes:
+        - resource: "package://robowflex_resources/objects/cafe_table.dae"
+          dimensions: [0.025, 0.025, 0.025]
+      mesh_poses:
+        - position: [0.3, 0.8, -0.08]
+          orientation: [0, 0, 0, 1]
+    - id: Cube1
       primitives:
         - type: box
-          dimensions: [0.1, 0.1, 0.1]
+          dimensions: [0.07, 0.07, 0.07]
       primitive_poses:
-        - position: [1, 1, 1]
+        - position: [0.0, 0.6, 0.72]
+          orientation: [0, 0, 0, 1]      
+    - id: Cube2
+      primitives:
+        - type: box
+          dimensions: [0.07, 0.07, 0.07]
+      primitive_poses:
+        - position: [0.2, 0.6, 0.72]
+          orientation: [0, 0, 0, 1]
+    - id: Cube3
+      primitives:
+        - type: box
+          dimensions: [0.07, 0.07, 0.07]
+      primitive_poses:
+        - position: [0.4, 0.6, 0.72]
           orientation: [0, 0, 0, 1]

@@ -44,16 +44,16 @@ int main(int argc, char **argv)
     planner->initialize();
 
     // Create a motion planning request with a pose goal.
-    MotionRequestBuilder request(planner, "arm2");
-    request.setStartConfiguration({0.0677, -0.8235, 0.9860, -0.1624, 0.0678, 0.0});
+    MotionRequestBuilder request(planner, "arm1");
+    request.setStartConfiguration({0, 0, 0, 0, 0, 0});
 
     RobotPose pose = RobotPose::Identity();
-    pose.translate(Eigen::Vector3d{0.0 , -0.5, 0.9});
-    Eigen::Quaterniond orn{0, 0, -0.70711, 0.70711};
+    pose.translate(Eigen::Vector3d{0.4 , -0.3, 0.3});
+    Eigen::Quaterniond orn{ 0.931, 0, 0,  -0.365}; // w x y z
 
-    request.setGoalRegion("robot2/end_effector_link", "world",               // links
-                                pose, Geometry::makeSphere(0.1),  // position
-                                orn, {0.1, 0.1, 0.1}           // orientation
+    request.setGoalRegion("robot1/end_effector_link", "world",               // links
+                                pose, Geometry::makeSphere(0.01),  // position
+                                orn, {0.001, 0.001, 0.001}           // orientation
         );
 
     rviz.addGoalMarker("goal", request);

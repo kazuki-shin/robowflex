@@ -30,7 +30,14 @@ namespace robowflex
         /** \brief Initialize the robot with manipulator kinematics.
          *  \return True on success, false on failure.
          */
-        bool initialize();
+        bool initialize(bool addVirtual = true);
+
+        /** \brief Sets the base pose of the Fetch robot (a virtual planar joint)
+         *  \param[in] x The x position.
+         *  \param[in] y The y position.
+         *  \param[in] theta The angle.
+         */
+        void setBasePose(double x, double y, double z, double theta);
 
     private:
         static const std::string DEFAULT_URDF;        ///< Default URDF

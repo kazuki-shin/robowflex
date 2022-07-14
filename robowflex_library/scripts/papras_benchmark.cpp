@@ -20,7 +20,7 @@ using namespace robowflex;
  * Note: This script requires GNUPlot for live visualization of timing data.
  */
 
-static const std::string GROUP = "arm2";
+static const std::string GROUP = "arm1";
 
 float RandomFloat(float a, float b) {
     float random = ((float) rand()) / (float) RAND_MAX;
@@ -62,10 +62,10 @@ int main(int argc, char **argv)
     // request->setGoalConfiguration(papras->getScratchState());
 
     RobotPose pose = RobotPose::Identity();
-    pose.translate(Eigen::Vector3d{0.0 , -0.5, 0.9});
-    Eigen::Quaterniond orn{0, 0, -0.70711, 0.70711};
+    pose.translate(Eigen::Vector3d{0.0 , -0.3, 0.2});
+    Eigen::Quaterniond orn{0, 0, 0.70711, 0.70711};
 
-    request->setGoalRegion("robot2/end_effector_link", "world",               // links
+    request->setGoalRegion("robot1/end_effector_link", "world",               // links
                                 pose, Geometry::makeSphere(0.01),  // position
                                 orn, {0.01, 0.01, 0.01}           // orientation
         );

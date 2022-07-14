@@ -15,7 +15,7 @@ using namespace robowflex;
  * planner but with simplified solutions disabled.
  */
 
-static const std::string GROUP = "arm2";
+static const std::string GROUP = "arm1";
 
 int main(int argc, char **argv)
 {
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
         pose.translate(Eigen::Vector3d{0.3735, -0.8115, 1.1387});
         Eigen::Quaterniond orn{0, 0, -0.70711, 0.70711};
 
-        request.setGoalRegion("robot2/end_effector_link", "world",               // links
+        request.setGoalRegion("robot1/end_effector_link", "world",               // links
                                 pose, Geometry::makeSphere(0.1),  // position
                                 orn, {0.1, 0.1, 0.1}           // orientation
         );
